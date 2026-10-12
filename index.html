@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ONE SKILL IN 15 MINUTES</title>
+  <!-- Font: DM Sans for everything, so the look stays consistent -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Top bar: hidden on the login page, shown after login -->
+  <header class="topbar" id="topbar" hidden>
+    <span class="brand">Talent Forge</span>
+    <div class="topbar-user"><span class="chip" id="chip"></span><button class="btn ghost logout" id="logout" type="button">Log out</button></div>
+  </header>
+
+  <!-- ========== PAGE 0: LANDING (robot holding a "CLICK HERE" board) ========== -->
+  <section id="landing" class="page active">
+    <main class="land">
+      <!-- Website name, shown above the robot -->
+      <h1 class="logo">Talent Forge</h1>
+      <p class="tagline">One Skill in 15 Minutes</p>
+
+      <!-- The robot opens account creation -->
+      <button class="robot" id="robot" aria-label="Click here to sign up">
+        <svg viewBox="0 0 300 330" xmlns="http://www.w3.org/2000/svg">
+          <ellipse class="shadow" cx="150" cy="316" rx="80" ry="9" fill="#000" opacity=".5"/>
+          <g class="rb">
+            <!-- antenna with glowing tip -->
+            <line x1="150" y1="42" x2="150" y2="62" stroke="#b8743a" stroke-width="4" stroke-linecap="round"/>
+            <circle class="glow" cx="150" cy="34" r="9" fill="#f0b36f"/>
+            <!-- head, ears and visor -->
+            <rect x="82" y="90" width="14" height="26" rx="6" fill="#b8743a"/><rect x="204" y="90" width="14" height="26" rx="6" fill="#b8743a"/>
+            <rect x="95" y="60" width="110" height="82" rx="30" fill="#2a2119" stroke="#b8743a" stroke-width="3"/>
+            <rect x="108" y="76" width="84" height="50" rx="20" fill="#0d0b09"/>
+            <!-- blinking eyes, smile and cheeks -->
+            <circle class="eye" cx="130" cy="98" r="7" fill="#f0b36f"/><circle class="eye" cx="170" cy="98" r="7" fill="#f0b36f"/>
+            <path d="M138 112 Q150 122 162 112" stroke="#f0b36f" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <circle cx="117" cy="110" r="5" fill="#b8743a" opacity=".5"/><circle cx="183" cy="110" r="5" fill="#b8743a" opacity=".5"/>
+            <!-- body and legs -->
+            <rect x="110" y="148" width="80" height="72" rx="26" fill="#2a2119" stroke="#b8743a" stroke-width="3"/>
+            <circle class="glow" cx="150" cy="170" r="6" fill="#f0b36f"/>
+            <rect x="124" y="268" width="18" height="30" rx="8" fill="#2a2119" stroke="#b8743a" stroke-width="3"/><rect x="158" y="268" width="18" height="30" rx="8" fill="#2a2119" stroke="#b8743a" stroke-width="3"/>
+            <ellipse cx="130" cy="300" rx="16" ry="8" fill="#b8743a"/><ellipse cx="170" cy="300" rx="16" ry="8" fill="#b8743a"/>
+            <!-- arms holding the board -->
+            <path d="M112 164 Q66 172 64 214" stroke="#b8743a" stroke-width="11" fill="none" stroke-linecap="round"/>
+            <path d="M188 164 Q234 172 236 214" stroke="#b8743a" stroke-width="11" fill="none" stroke-linecap="round"/>
+            <!-- the CLICK HERE board -->
+            <g class="board">
+              <rect x="42" y="196" width="216" height="84" rx="12" fill="#8a5a2b" stroke="#4a2f14" stroke-width="4"/>
+              <rect x="52" y="206" width="196" height="64" rx="8" fill="none" stroke="#e0a96d" stroke-width="2" stroke-dasharray="6 5"/>
+              <text x="150" y="247" text-anchor="middle" font-family="DM Sans, sans-serif" font-weight="700" font-size="30" fill="#fff3e3">CLICK HERE</text>
+            </g>
+            <circle cx="62" cy="218" r="11" fill="#d9a066"/><circle cx="238" cy="218" r="11" fill="#d9a066"/>
+          </g>
+        </svg>
+      </button>
+      <p class="hint">Tap the board to begin</p>
+      <button class="btn landing-cta" id="startSignup" type="button">Create your account</button>
+      <p class="credit">AWS Student Builder Campus Leader Initiative · SJC Institute of Technology</p>
+    </main>
+  </section>
+
+  <!-- ========== PAGE 1: STUDENT SIGN UP / LOGIN ========== -->
+  <section id="login" class="page">
+    <div class="split">
+      <!-- Left side: welcome text (stacks above the form on phones) -->
+      <aside class="hero">
+        <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+        <span class="brand">Talent Forge</span>
+        <h1>Learn one skill<br />in 15 minutes.</h1>
+        <p>Choose a skill, learn the basics, take a short challenge and get your personalised result.</p>
+        <ul class="perks"><li>5 skill challenges</li><li>15-minute timer</li><li>Personalised result</li></ul>
+      </aside>
+
+      <!-- Account forms -->
+      <main class="form-side">
+        <form class="card form" id="signupForm">
+          <h2>Create your student account</h2>
+          <p class="form-intro">New here? Sign up once to save your challenge results.</p>
+          <label>Full name<input id="name" autocomplete="name" required maxlength="100" placeholder="Your name" /></label>
+          <label>University Code (USN)<input id="signupUsn" autocomplete="username" required maxlength="15" placeholder="e.g. 1AB23CS001" /></label>
+          <label>Department
+            <select id="dept" required>
+              <option value="">Select department</option>
+              <option>CSE</option><option>ISE</option><option>AIML</option><option>ECE</option>
+              <option>EEE</option><option>Mechanical</option><option>Civil</option>
+            </select>
+          </label>
+          <div class="row">
+            <label>Semester
+              <select id="sem" required>
+                <option value="">Select</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option>
+                <option>5</option><option>6</option><option>7</option><option>8</option>
+              </select>
+            </label>
+            <label>Section<input id="sec" required maxlength="2" placeholder="e.g. A" /></label>
+          </div>
+          <label>Password<input id="signupPassword" type="password" autocomplete="new-password" required minlength="8" placeholder="At least 8 characters" /></label>
+          <label>Confirm password<input id="confirmPassword" type="password" autocomplete="new-password" required minlength="8" placeholder="Enter your password again" /></label>
+          <p class="error" id="signupErr" role="alert"></p>
+          <button class="btn" type="submit">Create account</button>
+          <p class="form-switch">Already have an account? <button type="button" class="link-button" data-show-form="loginForm">Log in</button></p>
+        </form>
+        <form class="card form" id="loginForm" hidden>
+          <h2>Welcome back</h2>
+          <p class="form-intro">Log in with the USN and password you used when signing up.</p>
+          <label>University Code (USN)<input id="loginUsn" autocomplete="username" required maxlength="15" placeholder="e.g. 1AB23CS001" /></label>
+          <label>Password<input id="loginPassword" type="password" autocomplete="current-password" required placeholder="Your password" /></label>
+          <p class="error" id="loginErr" role="alert"></p>
+          <button class="btn" type="submit">Log in</button>
+          <p class="form-switch">New to Talent Forge? <button type="button" class="link-button" data-show-form="signupForm">Create an account</button></p>
+        </form>
+      </main>
+    </div>
+  </section>
+
+  <!-- ========== PAGE 2: SELECT A TOPIC (5 cards) ========== -->
+  <section id="topics" class="page">
+    <main class="wrap">
+      <h1 id="welcome"></h1>
+      <p class="sub">Step 1 · Choose a skill. Every challenge fits into 15 minutes.</p>
+      <div class="grid">
+        <button class="card topic" data-topic="deploy" style="--i:0;--c:#8a5a2b;--c2:#c98b4f"><span class="ico">🚀</span><span class="tag">Deployment</span><h2>Deploy a website</h2><p>Take a site from your laptop to a live public link.</p><span class="go">Choose this skill <i>→</i></span></button>
+        <button class="card topic" data-topic="api" style="--i:1;--c:#a0522d;--c2:#d9a066"><span class="ico">🔌</span><span class="tag">Data</span><h2>Use an API</h2><p>Fetch live data from the web and show it on a page.</p><span class="go">Choose this skill <i>→</i></span></button>
+        <button class="card topic" data-topic="ai" style="--i:2;--c:#7b4a24;--c2:#e0a96d"><span class="ico">🧠</span><span class="tag">AI</span><h2>Add AI to an app</h2><p>Connect an AI model to an app you build.</p><span class="go">Choose this skill <i>→</i></span></button>
+        <button class="card topic" data-topic="chatbot" style="--i:3;--c:#b8743a;--c2:#f0c08a"><span class="ico">💬</span><span class="tag">AI</span><h2>Build a chatbot with a personality</h2><p>Design a bot with its own voice and style.</p><span class="go">Choose this skill <i>→</i></span></button>
+        <button class="card topic" data-topic="grade" style="--i:4;--c:#9c6b3a;--c2:#d8a26a"><span class="ico">🎓</span><span class="tag">Logic</span><h2>Build a Grade Calculator</h2><p>Enter subjects, credits and grades to get SGPA and CGPA.</p><span class="go">Choose this skill <i>→</i></span></button>
+      </div>
+    </main>
+  </section>
+
+  <!-- ========== PAGE 3: SKILL PAGE (Learn → Challenge → Result → Explore) ========== -->
+  <section id="task" class="page">
+    <main class="wrap narrow">
+      <button class="btn ghost" id="back">← Choose another skill</button>
+      <div class="banner" id="banner"><span class="ico big" id="taskIco"></span><div><h1 id="taskTitle"></h1><p id="taskDesc"></p></div></div>
+
+      <!-- Progress through the 4 stages -->
+      <ol class="stepper" id="stepper"><li>Learn</li><li>Challenge</li><li>Result</li><li>Explore</li></ol>
+
+      <!-- STAGE 1: LEARN (short guided introduction) -->
+      <div class="stage card" id="s1">
+        <h2>Learn the basics</h2>
+        <p id="learnText"></p>
+        <h3>What you will use</h3>
+        <ul class="pills" id="learnTools"></ul>
+        <button class="btn" id="startBtn">Start the 15-minute challenge</button>
+      </div>
+
+      <!-- STAGE 2: CHALLENGE (timer + tasks + student input) -->
+      <div class="stage card" id="s2" hidden>
+        <div class="timer"><span>Time left</span><b id="time">15:00</b></div>
+        <h2>Take the challenge</h2>
+        <ul class="checks" id="checks"></ul>
+        <!-- Grade calculator: shown only for the Grade Calculator skill -->
+        <div id="calc" hidden>
+          <div id="semesters"></div>
+          <div class="calc-foot">
+            <button class="btn ghost" id="addSem">+ Add semester</button>
+            <div class="total">CGPA <b id="cgpa">0.00</b></div>
+          </div>
+        </div>
+        <label>Your answer: paste your link or describe what you built<input id="answer" placeholder="e.g. https://my-site.netlify.app" /></label>
+        <button class="btn" id="finishBtn">Finish and get my result</button>
+      </div>
+
+      <!-- STAGE 3: RESULT (automatic evaluation and personalised feedback) -->
+      <div class="stage card result" id="s3" hidden>
+        <div class="ring" id="ring"><b id="resScore"></b></div>
+        <h2 id="resTitle"></h2>
+        <p id="resMsg"></p>
+        <button class="btn" id="toExplore">Continue learning</button>
+      </div>
+
+      <!-- STAGE 4: EXPLORE FURTHER -->
+      <div class="stage card" id="s4" hidden>
+        <h2>Explore further</h2>
+        <p class="sub">Ways to keep building this skill after the event.</p>
+        <ul class="pills big" id="explore"></ul>
+        <button class="btn" id="again">Try another skill</button>
+      </div>
+    </main>
+  </section>
+
+<script>
+// Shared DOM helper must be initialized before account and page handlers use it.
+const $ = (id) => document.getElementById(id);
+
+/* ---------- PAGE SWITCHING: fade out, then fade in the next page ---------- */
+let pageSwitchTimer;
+function show(id) {
+  const cur = document.querySelector('.page.active');
+  const next = document.getElementById(id);
+  if (!next) return;
+  if (cur === next) { cur.classList.remove('leaving'); return; }
+  clearTimeout(pageSwitchTimer);
+  if (!cur) { next.classList.add('active'); window.scrollTo(0, 0); return; }
+  cur.classList.add('leaving');
+  pageSwitchTimer = setTimeout(() => {
+    cur.classList.remove('active', 'leaving');
+    next.classList.add('active');
+    window.scrollTo(0, 0);
+  }, 300);
+}
+
+/* Landing: either call to action opens account creation */
+function openSignup() { setAccountForm('signupForm'); show('login'); }
+document.getElementById('robot').addEventListener('click', openSignup);
+document.getElementById('startSignup').addEventListener('click', openSignup);
+
+/* ---------- INPUT CLEANING: letters and numbers only, upper case ---------- */
+const signupUsn = document.getElementById('signupUsn');
+const loginUsn = document.getElementById('loginUsn');
+const sec = document.getElementById('sec');
+const clean = (el) => el.addEventListener('input', () => { el.value = el.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase(); });
+clean(signupUsn); clean(loginUsn); clean(sec);
+
+/* ---------- ACCOUNT SIGN UP AND LOGIN ---------- */
+let currentUSN = '';
+let currentStudent = null;
+function setAccountForm(id) {
+  $('signupForm').hidden = id !== 'signupForm';
+  $('loginForm').hidden = id !== 'loginForm';
+  $('signupErr').textContent = '';
+  $('loginErr').textContent = '';
+}
+document.querySelectorAll('[data-show-form]').forEach((button) => button.addEventListener('click', () => setAccountForm(button.dataset.showForm)));
+
+function enterApp(student) {
+  currentStudent = student;
+  currentUSN = student.usn;
+  $('welcome').textContent = 'Welcome, ' + student.name.split(' ')[0];
+  $('chip').textContent = `${student.usn} · ${student.department} · Sem ${student.semester} · ${student.section}`;
+  $('topbar').hidden = false;
+  show('topics');
+}
+
+async function accountRequest(path, body) {
+  const response = await fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  const payload = await response.json();
+  if (!response.ok) throw new Error(payload.error || 'Could not sign in. Please try again.');
+  return payload.student;
+}
+
+document.getElementById('signupForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const err = $('signupErr');
+  err.textContent = '';
+  if (signupUsn.value.length < 6) { err.textContent = 'Enter a valid USN, at least 6 characters.'; return; }
+  if ($('signupPassword').value !== $('confirmPassword').value) { err.textContent = 'The passwords do not match.'; return; }
+  const submit = form.querySelector('button[type="submit"]');
+  submit.disabled = true;
+  try {
+    const student = await accountRequest('/api/signup', {
+      name: $('name').value, usn: signupUsn.value, department: $('dept').value,
+      semester: $('sem').value, section: sec.value, password: $('signupPassword').value,
+    });
+    form.reset();
+    enterApp(student);
+  } catch (error) {
+    err.textContent = error.message === 'Failed to fetch' ? 'Cannot reach the backend. Start the app with npm start and try again.' : error.message;
+  } finally { submit.disabled = false; }
+});
+
+$('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const err = $('loginErr'); err.textContent = '';
+  if (loginUsn.value.length < 6) { err.textContent = 'Enter a valid USN, at least 6 characters.'; return; }
+  const submit = form.querySelector('button[type="submit"]'); submit.disabled = true;
+  try {
+    const student = await accountRequest('/api/login', { usn: loginUsn.value, password: $('loginPassword').value });
+    form.reset(); enterApp(student);
+  } catch (error) {
+    err.textContent = error.message === 'Failed to fetch' ? 'Cannot reach the backend. Start the app with npm start and try again.' : error.message;
+  } finally { submit.disabled = false; }
+});
+
+$('logout').addEventListener('click', async () => {
+  await fetch('/api/logout', { method: 'POST' }).catch(() => {});
+  currentUSN = ''; currentStudent = null; $('topbar').hidden = true; show('landing');
+});
+
+(async () => {
+  try {
+    const response = await fetch('/api/me');
+    const payload = await response.json();
+    if (response.ok && payload.student) enterApp(payload.student);
+  } catch { /* The signup page remains available while the backend starts. */ }
+})();
+
+/* ---------- SKILL CONTENT (edit the text here) ---------- */
+const TASKS = {
+  deploy:  { title:'Deploy a website', learn:'Deploying means putting your site on the internet so anyone can open it with a link. You will host a small page on a free platform.', tools:['Code editor','GitHub account','Netlify or Vercel'], checks:['Create a one-page website','Upload it to GitHub','Deploy it and open the live link'], explore:['AWS Amplify Hosting','Amazon S3 static website hosting','AWS Skill Builder cloud basics'] },
+  api:     { title:'Use an API', learn:'An API lets your app ask another service for data, such as weather or jokes, and get the answer back as JSON.', tools:['Browser console','A free public API','fetch()'], checks:['Pick a free public API','Fetch its data with fetch()','Show at least 3 results on your page'], explore:['Amazon API Gateway','AWS Lambda','AWS Skill Builder serverless basics'] },
+  ai:      { title:'Add AI to an app', learn:'Adding AI means sending a prompt to a model and showing its reply inside your app.', tools:['An AI API such as Amazon Bedrock','A prompt box','A private API key'], checks:['Add a prompt box and a button','Send the prompt to an AI model','Show the response on the page'], explore:['Amazon Bedrock','Prompt engineering basics','AWS Skill Builder generative AI'] },
+  chatbot: { title:'Build a chatbot with a personality', learn:'A chatbot gets its personality from a system prompt: who it is, how it talks and what it avoids.', tools:['A system prompt','A chat window','An AI model'], checks:['Write a personality in a system prompt','Build a simple chat window','Test it with 3 messages'], explore:['Amazon Lex','Amazon Bedrock','Prompt design practice'] },
+  grade:   { title:'Build a Grade Calculator', learn:'SGPA is the credit-weighted average of grade points in one semester. CGPA is the same average across all semesters.', tools:['Subjects and credits','Grade points','Basic arithmetic'], checks:['Enter at least 3 subjects with credits','Check the SGPA of one semester','Add a semester and read the CGPA'], explore:['Practise with your own marks card','Learn JavaScript array methods','Save results in a database'] },
+};
+let topic, topicKey, timerId, left, finishing = false;
+// Show one stage (1-4) and light up the stepper
+function stage(n) {
+  ['s1','s2','s3','s4'].forEach((x, i) => { $(x).hidden = i !== n - 1; });
+  document.querySelectorAll('#stepper li').forEach((li, i) => li.classList.toggle('on', i < n));
+}
+const li = (arr, cls = '') => arr.map((x) => `<li${cls}>${x}</li>`).join('');
+
+// Opening a skill card: fill the Learn stage
+document.querySelectorAll('.topic').forEach((card) => card.addEventListener('click', () => {
+  topicKey = card.dataset.topic;
+  topic = TASKS[card.dataset.topic];
+  const cs = getComputedStyle(card);
+  $('banner').style.setProperty('--c', cs.getPropertyValue('--c'));
+  $('banner').style.setProperty('--c2', cs.getPropertyValue('--c2'));
+  $('taskIco').textContent = card.querySelector('.ico').textContent;
+  $('taskDesc').textContent = '15-minute challenge';
+  $('taskTitle').textContent = topic.title;
+  $('learnText').textContent = topic.learn;
+  $('learnTools').innerHTML = li(topic.tools);
+  $('checks').innerHTML = topic.checks.map((c) => `<li><label><input type="checkbox" /> ${c}</label></li>`).join('');
+  $('calc').hidden = card.dataset.topic !== 'grade';
+  $('answer').value = '';
+  clearInterval(timerId);
+  stage(1);
+  show('task');
+}));
+
+// Start: 15-minute countdown
+$('startBtn').onclick = () => {
+  left = 15 * 60; finishing = false; tick(); stage(2);
+  timerId = setInterval(() => { left--; tick(); if (left <= 0) finish(); }, 1000);
+};
+function tick() { $('time').textContent = String(Math.floor(left / 60)).padStart(2, '0') + ':' + String(left % 60).padStart(2, '0'); $('time').classList.toggle('low', left < 60); }
+
+// Finish: simple automatic evaluation (70% tasks ticked, 30% answer filled)
+$('finishBtn').onclick = finish;
+async function finish() {
+  if (finishing || !topic || !currentUSN) return;
+  finishing = true;
+  clearInterval(timerId);
+  const boxes = [...document.querySelectorAll('#checks input')];
+  const score = Math.round(boxes.filter((b) => b.checked).length / boxes.length * 70 + ($('answer').value.trim().length >= 3 ? 30 : 0));
+  const first = currentStudent.name.split(' ')[0];
+  const used = 900 - left, took = `${Math.floor(used / 60)}m ${used % 60}s`;
+  try {
+    const response = await fetch('/api/results', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ skill: topicKey, score, durationSeconds: used,
+        checks: boxes.map((box) => box.checked), answer: $('answer').value.trim() }),
+    });
+    const payload = await response.json();
+    if (!response.ok) throw new Error(payload.error || 'Could not save your result.');
+  } catch (error) {
+    finishing = false;
+    alert(error.message === 'Failed to fetch' ? 'Cannot reach the backend. Your result was not saved.' : error.message);
+    return;
+  }
+  const r = score >= 90 ? ['Skill Smith', `Brilliant, ${first}! You completed ${topic.title.toLowerCase()} in ${took}.`]
+          : score >= 60 ? ['Rising Builder', `Nice work, ${first}! You are most of the way there. Try finishing the remaining tasks.`]
+          : ['Just Getting Started', `Good first step, ${first}! Revisit the Learn stage and try again.`];
+  $('ring').style.setProperty('--p', score);
+  $('resScore').textContent = score + '%';
+  $('resTitle').textContent = r[0]; $('resMsg').textContent = r[1];
+  stage(3);
+}
+$('toExplore').onclick = () => { $('explore').innerHTML = li(topic.explore); stage(4); };
+$('back').onclick = $('again').onclick = () => { clearInterval(timerId); show('topics'); };
+
+/* ---------- GRADE CALCULATOR (10-point scale, edit POINTS if needed) ---------- */
+const POINTS = { 'O': 10, 'A+': 9, 'A': 8, 'B+': 7, 'B': 6, 'C': 5, 'P': 4, 'F': 0 };
+const gradeOptions = Object.keys(POINTS).map((g) => `<option ${g === 'A' ? 'selected' : ''}>${g}</option>`).join('');
+const rowHTML = () => `<div class="calc-row"><input placeholder="Subject" /><input type="number" min="1" max="10" value="3" class="cr" /><select class="gr">${gradeOptions}</select></div>`;
+const box = document.getElementById('semesters');
+
+function addSemester() {
+  const div = document.createElement('div');
+  div.className = 'card block';
+  div.innerHTML = `<h3>Semester ${box.children.length + 1} <span class="score">SGPA 0.00</span></h3>
+    <div class="calc-head"><span>Subject</span><span>Credits</span><span>Grade</span></div>
+    <div class="rows">${rowHTML()}</div><button class="btn ghost add">+ Add subject</button>`;
+  div.querySelector('.add').onclick = () => { div.querySelector('.rows').insertAdjacentHTML('beforeend', rowHTML()); recalc(); };
+  box.appendChild(div);
+}
+// Weighted average: sum(credits x grade points) / sum(credits)
+function gpa(rows) {
+  let cr = 0, pts = 0;
+  rows.forEach((r) => { const c = +r.querySelector('.cr').value || 0; cr += c; pts += c * POINTS[r.querySelector('.gr').value]; });
+  return cr ? pts / cr : 0;
+}
+function recalc() {
+  box.querySelectorAll('.block').forEach((b) => { b.querySelector('.score').textContent = 'SGPA ' + gpa([...b.querySelectorAll('.calc-row')]).toFixed(2); });
+  document.getElementById('cgpa').textContent = gpa([...box.querySelectorAll('.calc-row')]).toFixed(2);
+}
+box.addEventListener('input', recalc);
+document.getElementById('addSem').onclick = () => { addSemester(); recalc(); };
+addSemester();
+</script>
+</body>
+</html>

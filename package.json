@@ -1,0 +1,12 @@
+{
+  "name": "talent-forge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Talent Forge learning challenge app with a small persistent backend",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
