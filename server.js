@@ -24,7 +24,7 @@ try {
 let sessionSecret = process.env.SESSION_SECRET;
 if (!sessionSecret) {
   sessionSecret = crypto.randomBytes(32).toString('hex');
-  fs.appendFileSync(ENV_FILE, `${fs.existsSync(ENV_FILE) && fs.statSync(ENV_FILE).size ? '\n' : ''}SESSION_SECRET=${sessionSecret}\n`, { mode: 0o600 });
+  console.warn('SESSION_SECRET is not configured; sessions will reset when this instance restarts.');
 }
 
 function supabaseConfig() {
